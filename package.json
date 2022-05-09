@@ -1,0 +1,13 @@
+{
+  "name": "vendure-plugin-vipps",
+  "version": "1.0.0",
+  "description": "Vendure plugin for Vipps payments",
+  "main": "dist/vipps.plugin.js",
+  "repository": "https://github.com/melanki/vendure-plugin-vipps",
+  "author": "Marensius Bae Pettersen",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "typescript": "^4.6.4"
+  }
+}
