@@ -1,28 +1,27 @@
-// import {
-//   PluginCommonModule,
-//   RuntimeVendureConfig,
-//   VendurePlugin,
-// } from '@vendure/core';
-// import gql from 'graphql-tag';
-// import { CoinbaseController, CoinbaseResolver } from './coinbase.controller';
-// import { coinbaseHandler } from './coinbase.handler';
-// import { CoinbaseService } from './coinbase.service';
+import {
+  PluginCommonModule,
+  RuntimeVendureConfig,
+  VendurePlugin,
+} from '@vendure/core';
+import gql from 'graphql-tag';
+import { VippsResolver } from './vipps.controller';
+import { vippsPaymentMethodHandler } from './vipps.handler';
+import { VippsService } from './vipps.service';
 
-// @VendurePlugin({
-//   imports: [PluginCommonModule],
-//   controllers: [CoinbaseController],
-//   providers: [CoinbaseService],
-//   shopApiExtensions: {
-//     schema: gql`
-//       extend type Mutation {
-//         createCoinbasePaymentIntent: String!
-//       }
-//     `,
-//     resolvers: [CoinbaseResolver],
-//   },
-//   configuration: (config: RuntimeVendureConfig) => {
-//     config.paymentOptions.paymentMethodHandlers.push(coinbaseHandler);
-//     return config;
-//   },
-// })
-// export class CoinbasePlugin {}
+@VendurePlugin({
+  imports: [PluginCommonModule],
+  providers: [VippsService],
+  shopApiExtensions: {
+    schema: gql`
+      extend type Mutation {
+        createVippsPaymentIntent: String!
+      }
+    `,
+    resolvers: [VippsResolver],
+  },
+  configuration: (config: RuntimeVendureConfig) => {
+    config.paymentOptions.paymentMethodHandlers.push(vippsPaymentMethodHandler);
+    return config;
+  },
+})
+export class VippsPlugin {}

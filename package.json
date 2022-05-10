@@ -11,6 +11,10 @@
     "axios": "^0.27.2",
     "typescript": "^4.6.4"
   },
+  "scripts": {
+    "start": "ts-node test/dev-server.ts",
+    "build": "rimraf dist && tsc"
+  },
   "devDependencies": {
     "@nestjs/cli": "^8.2.5",
     "@vendure/admin-ui-plugin": "^1.5.2",
