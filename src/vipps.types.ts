@@ -2,9 +2,6 @@ export interface CustomerInfo {
     mobileNumber: string;
 }
 
-/**
- * TODO: Implement
- */
 export interface StaticShippingDetail {
     isDefault: string;
     priority: number;

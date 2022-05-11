@@ -1,13 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import {
     ActiveOrderService,
-    ChannelService,
     EntityHydrator,
-    ErrorResult,
     Logger,
     Order,
-    OrderService,
-    OrderStateTransitionError,
     PaymentMethodService,
     RequestContext,
 } from '@vendure/core';
@@ -19,8 +15,6 @@ import { VippsClient } from './vipps.client';
 export class VippsService {
     constructor(
         private activeOrderService: ActiveOrderService,
-        private orderService: OrderService,
-        private channelService: ChannelService,
         private paymentMethodService: PaymentMethodService,
         private entityHydrator: EntityHydrator
     ) { }
@@ -73,41 +67,41 @@ export class VippsService {
         return result.data.url;
     }
 
-    async settlePayment(ctx: RequestContext): Promise<void> {
-        const { host, subscriptionKey, merchantSerialNumber } = await this.getVippsPaymentMethod(ctx);
-        const client = new VippsClient({ host, subscriptionKey });
-        const order = await this.activeOrderService.getOrderFromContext(ctx);
-        if (!order) {
-            throw Error('No active order found for session');
-        }
-        const result = await client.capturePayment({
-            merchantInfo: {
-                merchantSerialNumber: merchantSerialNumber
-            },
-            transaction: {
-                amount: order.totalWithTax,
-            }
-        });
-        Logger.info(`Payment for order ${order.code} settled`, loggerCtx);
-    }
+    // async settlePayment(ctx: RequestContext): Promise<void> {
+    //     const { host, subscriptionKey, merchantSerialNumber } = await this.getVippsPaymentMethod(ctx);
+    //     const client = new VippsClient({ host, subscriptionKey });
+    //     const order = await this.activeOrderService.getOrderFromContext(ctx);
+    //     if (!order) {
+    //         throw Error('No active order found for session');
+    //     }
+    //     const result = await client.capturePayment({
+    //         merchantInfo: {
+    //             merchantSerialNumber: merchantSerialNumber
+    //         },
+    //         transaction: {
+    //             amount: order.totalWithTax,
+    //         }
+    //     });
+    //     Logger.info(`Payment for order ${order.code} settled`, loggerCtx);
+    // }
 
-    async createRefund(ctx: RequestContext, order: Order): Promise<any> {
-        const { host, subscriptionKey, merchantSerialNumber } = await this.getVippsPaymentMethod(ctx);
-        const client = new VippsClient({ host, subscriptionKey });
-        if (!order) {
-            throw Error('No active order found for session');
-        }
-        const result = await client.refundPayment({
-            merchantInfo: {
-                merchantSerialNumber: merchantSerialNumber
-            },
-            transaction: {
-                amount: order.totalWithTax,
-            }
-        });
-        Logger.info(`Payment for order ${order.code} settled`, loggerCtx);
-        return result
-    }
+    // async createRefund(ctx: RequestContext, order: Order): Promise<any> {
+    //     const { host, subscriptionKey, merchantSerialNumber } = await this.getVippsPaymentMethod(ctx);
+    //     const client = new VippsClient({ host, subscriptionKey });
+    //     if (!order) {
+    //         throw Error('No active order found for session');
+    //     }
+    //     const result = await client.refundPayment({
+    //         merchantInfo: {
+    //             merchantSerialNumber: merchantSerialNumber
+    //         },
+    //         transaction: {
+    //             amount: order.totalWithTax,
+    //         }
+    //     });
+    //     Logger.info(`Payment for order ${order.code} settled`, loggerCtx);
+    //     return result
+    // }
 
     private async getVippsPaymentMethod(ctx: RequestContext) {
         let { items } = await this.paymentMethodService.findAll(ctx);

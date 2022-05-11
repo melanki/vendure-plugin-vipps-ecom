@@ -2,7 +2,8 @@
   "name": "vendure-plugin-vipps",
   "version": "1.0.0",
   "description": "Vendure plugin for Vipps payments",
-  "main": "dist/vipps.plugin.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.js",
   "repository": "https://github.com/melanki/vendure-plugin-vipps",
   "author": "Marensius Bae Pettersen",
   "license": "MIT",
@@ -17,6 +18,7 @@
   },
   "devDependencies": {
     "@nestjs/cli": "^8.2.5",
+    "@nestjs/graphql": "^10.0.11",
     "@vendure/admin-ui-plugin": "^1.5.2",
     "@vendure/core": "^1.5.2",
     "@vendure/testing": "^1.5.2",

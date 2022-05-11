@@ -1,4 +1,3 @@
-import { Body, Controller, Post } from '@nestjs/common';
 import { Resolver, Mutation } from '@nestjs/graphql';
 import { VippsService } from './vipps.service';
 import { Ctx, RequestContext } from '@vendure/core';

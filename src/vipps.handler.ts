@@ -93,14 +93,14 @@ export const vippsPaymentMethodHandler = new PaymentMethodHandler({
         order,
         payment
     ): Promise<CreateRefundResult> => {
-        const result = await vippsService.createRefund(ctx, order)
+        // const result = await vippsService.createRefund(ctx, order)
 
-        if (result?.data?.transaction) {
-            return {
-                state: 'Settled' as const,
-                transactionId: payment.transactionId
-            };
-        }
+        // if (result?.data?.transaction) {
+        //     return {
+        //         state: 'Settled' as const,
+        //         transactionId: payment.transactionId
+        //     };
+        // }
 
         return {
             state: 'Failed'

@@ -4,7 +4,7 @@ import {
   VendurePlugin,
 } from '@vendure/core';
 import gql from 'graphql-tag';
-import { VippsResolver } from './vipps.controller';
+import { VippsResolver } from './vipps.resolver';
 import { vippsPaymentMethodHandler } from './vipps.handler';
 import { VippsService } from './vipps.service';
 
